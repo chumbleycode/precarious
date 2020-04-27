@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587645086505.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4276423765",
+    "id" : "AA1A1F66",
+    "lastKnownWriteTime" : 1587657280,
+    "last_content_update" : 1587657280371,
+    "path" : "~/precarious/precarious/mediation_analysis.R",
+    "project_path" : "mediation_analysis.R",
+    "properties" : {
+        "cursorPosition" : "112,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

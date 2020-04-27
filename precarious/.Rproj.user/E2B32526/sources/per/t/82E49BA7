@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587645521820.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3361692282",
+    "id" : "82E49BA7",
+    "lastKnownWriteTime" : 1587645302,
+    "last_content_update" : 1587645302,
+    "path" : "~/precarious/precarious/rVisualizations/streamGraph.R",
+    "project_path" : "rVisualizations/streamGraph.R",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

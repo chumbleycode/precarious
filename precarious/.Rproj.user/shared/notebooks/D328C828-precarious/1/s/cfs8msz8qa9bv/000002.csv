@@ -1,0 +1,6 @@
+"0","outcome_equ
+"
+"1","[1]"
+"1"," ""HEALTH2 ~ d1*PRECARIAT9 + b1*EFFICACY2 +  b2*socint +  b3*soccap + coef_1*age +  coef_2*female +  coef_3*native +  coef_4*poor +  coef_5*daded +  coef_6*educ + mycl_coef2*MYCLASS_2 +  mycl_coef3*MYCLASS_3 +  mycl_coef4*MYCLASS_4 +  mycl_coef5*MYCLASS_5 +  mycl_coef6*MYCLASS_6 +  mycl_coef7*MYCLASS_7 +  mycl_coef8*MYCLASS_8 +  mycl_coef9*MYCLASS_9 + lmp_coef2*LMP_2 +  lmp_coef3*LMP_3 +  lmp_coef4*LMP_4 +  lmp_coef5*LMP_5 +  lmp_coef6*LMP_6 + CNTRY_coef2*CNTRY_2 +  CNTRY_coef3*CNTRY_3 +  CNTRY_coef4*CNTRY_4 +  CNTRY_coef5*CNTRY_5 +  CNTRY_coef6*CNTRY_6 +  CNTRY_coef7*CNTRY_7 +  CNTRY_coef8*CNTRY_8 +  CNTRY_coef9*CNTRY_9 +  CNTRY_coef10*CNTRY_10 +  CNTRY_coef11*CNTRY_11 +  CNTRY_coef12*CNTRY_12 +  CNTRY_coef13*CNTRY_13 +  CNTRY_coef14*CNTRY_14 +  CNTRY_coef15*CNTRY_15 +  CNTRY_coef16*CNTRY_16 +  CNTRY_coef17*CNTRY_17 +  CNTRY_coef18*CNTRY_18 +  CNTRY_coef19*CNTRY_19 +  CNTRY_coef20*CNTRY_20 +  CNTRY_coef21*CNTRY_21 +  CNTRY_coef22*CNTRY_22 +  CNTRY_coef23*CNTRY_23 +  CNTRY_coef24*CNTRY_24 +  CNTRY_coef25*CNTRY_25 +  CNTRY_coef26*CNTRY_26 +  CNTRY_coef27*CNTRY_27 + CLASS_coef2*CLASS_2 +  CLASS_coef3*CLASS_3 +  CLASS_coef4*CLASS_4 +  CLASS_coef5*CLASS_5 +  CLASS_coef6*CLASS_6 +  CLASS_coef7*CLASS_7 +  CLASS_coef8*CLASS_8 +  CLASS_coef9*CLASS_9 + MARST_coef2*MARST_2 +  MARST_coef3*MARST_3 + """
+"1","
+"

@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587974705016.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2892555696",
+    "id" : "F4B901D4",
+    "lastKnownWriteTime" : 1587975109,
+    "last_content_update" : 1587975109294,
+    "path" : "~/precarious/precarious/mediation_mediation_pkg.R",
+    "project_path" : "mediation_mediation_pkg.R",
+    "properties" : {
+        "cursorPosition" : "1,0",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

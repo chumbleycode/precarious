@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587645094868.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4210547595",
+    "id" : "88A3066A",
+    "lastKnownWriteTime" : 1587645106,
+    "last_content_update" : 1587645106703,
+    "path" : "~/precarious/precarious/lavaan_extended_example.R",
+    "project_path" : "lavaan_extended_example.R",
+    "properties" : {
+        "cursorPosition" : "68,0",
+        "scrollLine" : "39",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

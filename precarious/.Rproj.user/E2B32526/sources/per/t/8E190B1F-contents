@@ -1,0 +1,128 @@
+---
+title: "precarious"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, cache=TRUE}
+# The hypothesis is that precarious work decreases self-rated heath. The
+# meditational hypotheses are that this relationship is mediated by: efficacy,
+# social support, and social capital.
+#
+# reg HEALTH2 CNTRY_2-CNTRY_27 AGE FEMALE NATIVE MARST_2 MARST_3 TVTIME
+# RELIGIOUS  CLASS_2-CLASS_9 DADED EDUC LMP_2-LMP_6 POOR MYCLASS_2-MYCLASS_9
+# EFFICACY2 SOCINT SOCCAP PRECARIAT9 WEIGHT
+#
+# where HEALTH2 is the outcome, the treatment indicator is PRECARIAT9, the
+# mediators are EFFICACY2 SOCINT and SOCCAP, and the weight variable is WEIGHT.
+#
+# All the other variables are controls.
+#
+# The dataset includes an id variable and dummies for the countries.
+
+library(stringr)
+library(dplyr)
+library(lavaan)
+library(ggformula)
+load("~/precarious/precarious/ESS-HEALTH2-FULL.RData")
+dat = `ESS-HEALTH2-FULL`
+rm(`ESS-HEALTH2-FULL`)
+
+with(dat,  table(HEALTH2 <= 3, PRECARIAT9 >= 3))  # ill-health positively related to precariousness
+with(dat,  table(HEALTH2, PRECARIAT9))
+dat %>% count(HEALTH2 > 3, PRECARIAT9 < 3) # negative relation ?
+
+# Observe:
+# All variables have an order, but they are either discrete or continuous. 
+# The mediators are either continuous (socint) or ordered factors (soccap, EFFICACY2) with many levels
+# The treatment and outcome are ordered factors with 5 levels each  
+# There is a negative relation between treatment and outcome.
+
+# The treatment and the outcome are the most non-gaussian.
+
+# # dat %>% select(EFFICACY2,socint, soccap,   HEALTH2, PRECARIAT9) %>% cor(method = "kendall")
+# EFFICACY2      socint      soccap          HEALTH2  PRECARIAT9
+# EFFICACY2   1.00000000  0.17886851   0.03351416  0.24130723 -0.18811450
+# socint      0.17886851  1.00000000    0.05859866  0.17514726 -0.15326912
+# soccap      0.21445834  0.14477898    -0.01430031  0.11583341 -0.13221387
+# HEALTH2     0.24130723  0.17514726   -0.06430507  1.00000000 -0.14853815
+# PRECARIAT9 -0.18811450 -0.15326912   -0.02468539 -0.14853815  1.00000000
+
+# PRECARIAT9 strongly predicts EFFICACY2 and socint
+dat %>% gf_point(EFFICACY2~ factor(PRECARIAT9)) %>% gf_jitter()
+with(dat, chisq.test(PRECARIAT9, EFFICACY2))
+dat %>% gf_violin(socint~ factor(PRECARIAT9))  %>% gf_jitter()
+with(dat, anova(lm( socint ~ PRECARIAT9))) # continuous
+
+# Less obvious predictor of soccap
+dat %>% gf_point(soccap~ factor(PRECARIAT9)) %>% gf_jitter()
+with(dat, chisq.test(PRECARIAT9, soccap))
+
+ 
+
+# All mediators are positively related to one another.
+#########################
+
+dat %>% gf_point(EFFICACY2~soccap) %>% gf_jitter()
+dat %>% gf_point(EFFICACY2~socint) %>% gf_jitter()
+dat %>% gf_point(soccap~socint) %>% gf_jitter()
+
+# SEM Analysis: PRECARIAT9 is exogenous treatment. Candidate partial mediators: EFFICACY2, socint, soccap. There are three specific indirect effects. The total indirect effect is.
+###################################
+
+outcome_equ = str_c(
+  # outcome
+  "HEALTH2 ~ ",
+  str_c("d", 1, "*", c("PRECARIAT9"), " + ", collapse = " " ),
+  # candidate mediators
+  str_c("b", 1:3, "*", c("EFFICACY2", "socint", "soccap"), " + ", collapse = " " ),
+  # pretreatment variables
+  str_c("coef_", 1:6, "*", c("age", "female", "native", "poor","daded", "educ"), " + ", collapse = " " ),
+  str_c("mycl_coef", 2:9,  "*", "MYCLASS_", 2:9, " + ", collapse = " "),
+  str_c("lmp_coef", 2:6,  "*", "LMP_", 2:6, " + ", collapse = " "),
+  str_c("CNTRY_coef",  2:27,  "*", "CNTRY_", 2:27, " + ", collapse = " "),
+  str_c("CLASS_coef",  2:9,  "*", "CLASS_", 2:9, " + ", collapse = " "),
+  str_c("MARST_coef",  2:3,  "*", "MARST_", 2:3, " + ", collapse = " "),
+  collapse = "     ")
+
+# WHAT ABOUT WEIGHTS?
+
+# The first line below is the value of rhs "outcome_equ"
+multipleMediation <- '
+HEALTH2 ~ d1*PRECARIAT9 + b1*EFFICACY2 +  b2*socint +  b3*soccap + coef_1*age +  coef_2*female +  coef_3*native +  coef_4*poor +  coef_5*daded +  coef_6*educ + mycl_coef2*MYCLASS_2 +  mycl_coef3*MYCLASS_3 +  mycl_coef4*MYCLASS_4 +  mycl_coef5*MYCLASS_5 +  mycl_coef6*MYCLASS_6 +  mycl_coef7*MYCLASS_7 +  mycl_coef8*MYCLASS_8 +  mycl_coef9*MYCLASS_9 + lmp_coef2*LMP_2 +  lmp_coef3*LMP_3 +  lmp_coef4*LMP_4 +  lmp_coef5*LMP_5 +  lmp_coef6*LMP_6 + CNTRY_coef2*CNTRY_2 +  CNTRY_coef3*CNTRY_3 +  CNTRY_coef4*CNTRY_4 +  CNTRY_coef5*CNTRY_5 +  CNTRY_coef6*CNTRY_6 +  CNTRY_coef7*CNTRY_7 +  CNTRY_coef8*CNTRY_8 +  CNTRY_coef9*CNTRY_9 +  CNTRY_coef10*CNTRY_10 +  CNTRY_coef11*CNTRY_11 +  CNTRY_coef12*CNTRY_12 +  CNTRY_coef13*CNTRY_13 +  CNTRY_coef14*CNTRY_14 +  CNTRY_coef15*CNTRY_15 +  CNTRY_coef16*CNTRY_16 +  CNTRY_coef17*CNTRY_17 +  CNTRY_coef18*CNTRY_18 +  CNTRY_coef19*CNTRY_19 +  CNTRY_coef20*CNTRY_20 +  CNTRY_coef21*CNTRY_21 +  CNTRY_coef22*CNTRY_22 +  CNTRY_coef23*CNTRY_23 +  CNTRY_coef24*CNTRY_24 +  CNTRY_coef25*CNTRY_25 +  CNTRY_coef26*CNTRY_26 +  CNTRY_coef27*CNTRY_27 + CLASS_coef2*CLASS_2 +  CLASS_coef3*CLASS_3 +  CLASS_coef4*CLASS_4 +  CLASS_coef5*CLASS_5 +  CLASS_coef6*CLASS_6 +  CLASS_coef7*CLASS_7 +  CLASS_coef8*CLASS_8 +  CLASS_coef9*CLASS_9 + MARST_coef2*MARST_2 +  MARST_coef3*MARST_3
+EFFICACY2 ~ a1*PRECARIAT9
+socint ~ a2*PRECARIAT9
+soccap ~ a3*PRECARIAT9
+indirect1 := a1*b1
+indirect2 := a2*b2
+indirect3 := a3*b3
+aggregate_indirect := indirect1 + indirect2 + indirect3
+total := d1 + (a1*b1) + (a2*b2) + (a3*b3)
+EFFICACY2 ~~ socint
+EFFICACY2 ~~ soccap
+socint ~~ soccap
+'
+# ASSUMES MULTIVARIATE NORMALITY OF ENDOGENOUS VARIABLES (AMOUNG OTHER THINGS)
+
+endogenous = dat %>% select(EFFICACY2, socint, soccap, HEALTH2)
+
+# -> examine Satorra-Bentler Chi square. Robust SE. Bootstrap. 
+# fit <- sem(model = multipleMediation, data = dat)
+# fit <- sem(model = multipleMediation, data = dat, test = "bollen.stine", se = "bootstrap") # a way to robustify: https://www.youtube.com/watch?v=HvYW_GeHpD8
+fit <- sem(model = multipleMediation, data = dat, estimator = "MLM", se = "robust") # gets satora-bentley and fineses non-normality.
+
+summary(fit) 
+parameterEstimates(fit) %>% as_tibble() %>% filter(str_detect(lhs, "indirect"))
+fitMeasures(fit) # CFI TLI 
+# Not fully mediated by the three candidates: PRECARIAT9 is significant     
+
+```
+
+
+```{r}
+parameterEstimates(fit) %>% as_tibble() %>% filter(str_detect(lhs, "indirect")) %>% knitr::kable()
+```

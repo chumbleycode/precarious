@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587708677209.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1140827526",
+    "id" : "8E190B1F",
+    "lastKnownWriteTime" : 1587739759,
+    "last_content_update" : 1587739759277,
+    "path" : "~/precarious/precarious/precarious.Rmd",
+    "project_path" : "precarious.Rmd",
+    "properties" : {
+        "cursorPosition" : "18,1",
+        "last_setup_crc32" : "",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 9,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
